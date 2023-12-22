@@ -30,18 +30,12 @@ def after_request(response):
     return response
 
 #KEEP BUT CHANGE AS THIS WILL BE THE HOMEPAGE AFTER LOGIN
-@app.route("/index.html")
-@login_required
+@app.route("/")
 def index():
-    """Show Play button if logged in"""
-    user = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+    """Shows Register or Login button"""
+    # user = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
 
-    if user and len(user) > 0:
-        highScore = user[0]["highScore"]
-        favoriteTeam = user[0]["favoriteTeam"]
-        username = user[0]["username"]
-
-    return render_template("index.html", highScore=highScore, favoriteTeam=favoriteTeam, username=username)
+    return render_template("index.html")
 
 # Make the game
 @app.route("/play", methods=["GET", "POST"])
@@ -50,8 +44,10 @@ def play():
     """Play the game"""
     teams = db.execute("SELECT teamName FROM teams")
     
-    if teams:
-        random_team = random.choice(teams)
+    # if teams:
+    #     random_team = random.choice(teams)
+
+    return render_template("play.html")
 
 #NEED
 @app.route("/login", methods=["GET", "POST"])

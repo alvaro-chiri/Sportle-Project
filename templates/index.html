@@ -6,18 +6,34 @@
 
 {% block main %}
     <div>
-        <h1>
-            Welcome, {{ username }}!
+        <div class="logo-size">
+            <i class="fa-solid fa-futbol"></i>
+        </div>
+        <h1 class="sportle-decorators">
+            Sportle
         </h1>
-        <h3>Hope {{ favoriteTeam }} is doing well!</h3>
-    </div>
-    <div>
-        <h1>Your HighScore is:</h1>
-        <h2>{{ highScore }}</h2>
-    </div>
-    <div>
-        <form action="/play" method="post">
-            <button class="btn btn-primary" type="submit">Let's Play</button>
-        </form>
+        <h2 class="game-description">
+                Get 6 chances to
+                <br>
+                guess a sports team.
+        </h2>
+    <div class="index-buttons">
+        <div class="row">
+            <div class="col">
+                <form action="/register" method="post">
+                    <button class="index-button">Register</button>
+                </form>
+            </div>
+            <div class="col">
+                <form action="/login">
+                    <button class="index-button">Log In</button>
+                </form>
+            </div>
+            <div class="col">
+                <form action="/play" method="post">
+                    <button class="play-button" type="submit">Play</button>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
