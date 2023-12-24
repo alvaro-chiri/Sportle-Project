@@ -32,10 +32,6 @@ body
     background-color: #e3e3e1;
 }
 
-
-
-
-
 .logo-size
 {
     font-size: 500%;
@@ -48,6 +44,29 @@ body
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bold;
     margin-bottom: 12px;
+}
+
+.sportle-decorators-nav
+{
+    font-size: 50px;
+    line-height: 38px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    justify-content: center;
+    color: #fff;
+}
+
+.nav-logo
+{
+    font-size: 150%;
+}
+
+.dropdown-burger
+{
+    font-size: 36px;
+    line-height: 38px;
+    font-weight: bold;
+    color: #fff;
 }
 
 .index-buttons
@@ -113,4 +132,48 @@ body
     text-align: center;
     font-size: 24.8px;
     font-weight: bold;
+}
+
+/* Play html */
+.game-board-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    overflow: hidden;
+    display: grid;
+    grid-gap: 5px;
+    box-sizing: border-box;
+    grid-gap: 5px;
+}
+
+tr
+{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 5px;
+}
+
+.headers
+{
+    text-align: center;
+    text-decoration: underline;
+    font-size: small;
+    margin-right: 5px;
+}
+
+.tiles
+{
+    background-color: none;
+    border: 2px solid black;
+    color: black;
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+}
+
+.play-form
+{
+    margin-top: 25px;
 }

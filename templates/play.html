@@ -4,9 +4,88 @@
     Play
 {% endblock %}
 
+{% block nav %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><i class="fas fa-futbol nav-logo"></i></a>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active sportle-decorators-nav" aria-current="page">Sportle</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-bars dropdown-burger"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="changePassword">Change Password</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
 {% block main %}
-    <form action="/play" method="post">
-        This is play
-    </form>
-    {% block bought %}{% endblock %}
+    <div>
+        <table class="game-board-container">
+            <thead>
+                <td class="headers">Sport</td>
+                <td class="headers">Region</td>
+                <td class="headers">Country</td>
+                <td class="headers">League</td>
+                <td class="headers">Team</td>
+            </thead>
+            <tr>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+            </tr>
+            <tr>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+            </tr>
+            <tr>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+            </tr>
+            <tr>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+            </tr>
+            <tr>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+            </tr>
+            <tr>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+                <td class="tiles"></td>
+            </tr>
+        </table>    
+        <div class="play-form">
+            <form action="/play" method="post">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="teamName" name="teamName" placeholder="Enter a team" type="text">
+            </form>
+        </div>   
+    </div>
 {% endblock %}

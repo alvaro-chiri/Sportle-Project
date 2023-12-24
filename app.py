@@ -39,7 +39,7 @@ def index():
 
 # Make the game
 @app.route("/play", methods=["GET", "POST"])
-@login_required
+# @login_required
 def play():
     """Play the game"""
     teams = db.execute("SELECT teamName FROM teams")
