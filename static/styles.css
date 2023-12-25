@@ -188,6 +188,21 @@ tr
     flex-wrap: wrap;
 }
 
+#titles
+{
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 3px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.title-class
+{
+    width: 60px;
+    margin: 2.5px;
+}
+
 .tile
 {
     border: 2px solid black;
