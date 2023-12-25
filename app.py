@@ -44,8 +44,8 @@ def play():
     """Play the game"""
     teams = db.execute("SELECT teamName FROM teams")
     
-    # if teams:
-    #     random_team = random.choice(teams)
+    if teams:
+        random_team = random.choice(teams)
 
     return render_template("play.html")
 
