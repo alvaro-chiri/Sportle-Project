@@ -135,48 +135,6 @@ body
 }
 
 /* Play html */
-.game-board-container
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    overflow: hidden;
-    display: grid;
-    grid-gap: 5px;
-    box-sizing: border-box;
-    grid-gap: 5px;
-}
-
-tr
-{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 5px;
-}
-
-.headers
-{
-    text-align: center;
-    text-decoration: underline;
-    font-size: small;
-    margin-right: 5px;
-}
-
-.tiles
-{
-    background-color: none;
-    border: 2px solid black;
-    color: black;
-    height: 50px;
-    width: 50px;
-    margin: 5px;
-}
-
-.play-form
-{
-    margin-top: 25px;
-}
 
 #board
 {
