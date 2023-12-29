@@ -4,6 +4,13 @@
     Play
 {% endblock %}
 
+{% block script %}
+    <script>
+        const serverData = {{ random_team | tojson | safe }};
+        console.log('Data received from backend:', serverData)
+    </script>
+{% endblock %}
+
 {% block nav %}
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -40,6 +47,22 @@
     <div id="board">
 
     </div>
+    <br>
+    <div class="answerForm">
+        <form action="/user_answer" method="get">
+            <div class="mb-3">
+                <select class="form-control mx-auto w-auto" id="userAnswer" name="user_answer" placeholder="Team Name" type="text">
+                    {% for team in teams %}
+                    <option value="{{ team.teamName }}">{{ team.teamName }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+
+
+    <h1>{{ random_team }}</h1>
 
 
 {% endblock %}

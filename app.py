@@ -1,7 +1,7 @@
 import os
 
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 import random
@@ -41,13 +41,32 @@ def index():
 @app.route("/play", methods=["GET", "POST"])
 # @login_required
 def play():
-    """Play the game"""
-    teams = db.execute("SELECT teamName FROM teams")
+    """Build the game"""
+    teams = db.execute("SELECT * FROM teams")
     
     if teams:
+        teams = sorted(teams, key=lambda x: x['teamName'])
+
         random_team = random.choice(teams)
 
-    return render_template("play.html")
+        return render_template("play.html", random_team=random_team, teams=teams)
+
+    return render_template("play.html", teams=teams)
+
+# @app.route("/user_answer", methods=["GET"])
+# def user_answer():
+#     """get the users answer for the game"""
+#     user_answer = request.args.get("user_answer")
+
+#     submitted_team = db.execute(
+#         "SELECT * FROM teams WHERE teamName = ?", request.form.get("user_answer")
+#     ).fetchone()
+
+#     return jsonify(submitted_team)
+
+# if __name__ == "__main__":
+#     app.run(debug=True)
+
 
 #NEED
 @app.route("/login", methods=["GET", "POST"])
