@@ -62,6 +62,8 @@ function guess() {
         
             //end the game
             gameWin = true;
+
+            gameWinFunction()
         }
         else {
             if (selectedAnswer['sport'] == randomTeamData.sport) {
@@ -109,6 +111,7 @@ function guess() {
 
         if (row == 6) {
             gameOver = true
+            gameOverFunction()
         }
     } catch (error) {
         console.error('Error parsing selected answer:', error);
@@ -116,15 +119,35 @@ function guess() {
 }
 
 
+// function gameOverFunction() {
+//     fetch('/game_over', {
+//         method: 'post',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//     })
+//     .then(response => response.text())  // Assuming the server responds with a redirect URL
+//     .then(redirectUrl => {
+//         // Redirect to the specified URL
+//         window.location.href = redirectUrl;
+//     })
+//     .catch(error => {
+//         console.error('Error calling Python action:', error);
+//     });
+// }
+
 function gameOverFunction() {
+    console.log('Game Over!'); // Add this line
     fetch('/game_over', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            // You may need additional headers or authentication tokens
         },
-        // You can include data in the request body if needed
-        // body: JSON.stringify({ key: 'value' }),
+    })
+    .then(response => response.text())
+    .then(redirectUrl => {
+        console.log('Redirecting to:', redirectUrl); // Add this line
+        window.location.href = redirectUrl;
     })
     .catch(error => {
         console.error('Error calling Python action:', error);
@@ -133,13 +156,15 @@ function gameOverFunction() {
 
 function gameWinFunction() {
     fetch('/game_win', {
-        method: 'POST',
+        method: 'post',
         headers: {
             'Content-Type': 'application/json',
-            // You may need additional headers or authentication tokens
         },
-        // You can include data in the request body if needed
-        // body: JSON.stringify({ key: 'value' }),
+    })
+    .then(response => response.text())  // Assuming the server responds with a redirect URL
+    .then(redirectUrl => {
+        // Redirect to the specified URL
+        window.location.href = redirectUrl;
     })
     .catch(error => {
         console.error('Error calling Python action:', error);

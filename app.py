@@ -5,8 +5,9 @@ from flask import Flask, flash, redirect, render_template, request, session, jso
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 import random
+import requests
 
-from helpers import apology, login_required, lookup
+from helpers import apology, login_required
 
 # Configure application
 app = Flask(__name__)
@@ -38,7 +39,7 @@ def index():
 
 # Make the game
 @app.route("/play", methods=["GET", "POST"])
-# @login_required
+@login_required
 def play():
     """Build the game"""
     teams = db.execute("SELECT * FROM teams")
@@ -54,14 +55,92 @@ def play():
 
 #GAME OVER
 @app.route("/game_over", methods=["POST"])
-# @login_required
+@login_required
 def game_over():
     """end game as loss"""
     if request.method == "POST":
         rows = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
         
+        # update the games played
         games_played = rows[0]["played"]
+        update_games_played = games_played + 1
 
+        db.execute(
+            "UPDATE users SET played = ? WHERE id = ?", update_games_played, session["user_id"]
+        )
+
+        #update the winPerc
+        games_won = rows[0]["wins"]
+        new_win_percentage = games_won / update_games_played
+
+        db.execute(
+            "UPDATE users SET winPerc = ? WHERE id = ?", new_win_percentage, session["user_id"]
+        )
+
+        #update streak
+        new_streak = 0
+
+        db.execute(
+            "UPDATE users SET currStreak = ? WHERE id = ?", new_streak, session["user_id"]
+        )
+
+        user_info = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+
+        return render_template("gameOver.html", user_info=user_info)
+
+    else:
+        return render_template("register.html")
+
+#GAME WIN
+@app.route("/game_win", methods=["POST", "GET"])
+@login_required
+def game_win():
+    """end game as a win"""
+    if request.method == "GET":
+        rows = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+        
+        # update the games played
+        games_played = rows[0]["played"]
+        update_games_played = games_played + 1
+
+        db.execute(
+            "UPDATE users SET played = ? WHERE id = ?", update_games_played, session["user_id"]
+        )
+
+        # updated wins
+        games_won = rows[0]["wins"]
+        new_wins = games_won + 1
+        db.execute(
+            "UPDATE users SET wins = ? WHERE id = ?", new_wins, session["user_id"]
+        )
+
+        #update the winPerc
+        new_win_percentage = new_wins / update_games_played
+
+        db.execute(
+            "UPDATE users SET winPerc = ? WHERE id = ?", new_win_percentage, session["user_id"]
+        )
+
+        #update streak
+        win_streak = rows[0]["currStreak"]
+        new_streak = win_streak + 1
+
+        db.execute(
+            "UPDATE users SET currStreak = ? WHERE id = ?", new_streak, session["user_id"]
+        )
+
+        # update maxstreak if needed
+        max_streak = rows[0]["maxStreak"]
+
+        if new_streak > max_streak:
+            max_streak = new_streak
+            db.execute(
+                "UPDATE users SET maxStreak = ? WHERE id = ?", max_streak, session["user_id"]
+            )
+
+        user_info = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+
+        return render_template("gameWin.html", user_info=user_info)
 
     else:
         return render_template("register.html")
@@ -70,7 +149,7 @@ def game_over():
 
 
 #NEED
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["POST", "GET"])
 def login():
     """Log user in"""
 
