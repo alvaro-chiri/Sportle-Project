@@ -16,7 +16,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///sportle.db")
 # CHANGE THE ABOVE TO THE CORRECT DB LATER
 
@@ -53,23 +52,25 @@ def play():
 
     return render_template("play.html", teams=teams)
 
-# @app.route("/user_answer", methods=["GET"])
-# def user_answer():
-#     """get the users answer for the game"""
-#     user_answer = request.args.get("user_answer")
+#GAME OVER
+@app.route("/game_over", methods=["POST"])
+# @login_required
+def game_over():
+    """end game as loss"""
+    if request.method == "POST":
+        rows = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+        
+        games_played = rows[0]["played"]
 
-#     submitted_team = db.execute(
-#         "SELECT * FROM teams WHERE teamName = ?", request.form.get("user_answer")
-#     ).fetchone()
 
-#     return jsonify(submitted_team)
+    else:
+        return render_template("register.html")
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+
 
 
 #NEED
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["POST"])
 def login():
     """Log user in"""
 

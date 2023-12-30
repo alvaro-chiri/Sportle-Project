@@ -6,8 +6,7 @@
 
 {% block script %}
     <script>
-        const serverData = {{ random_team | tojson | safe }};
-        console.log('Data received from backend:', serverData)
+        window.randomTeamData = {{ random_team | tojson | safe }};
     </script>
 {% endblock %}
 
@@ -50,20 +49,20 @@
     </div>
     <br>
     <div class="answerForm">
-        <form action="/user_answer" method="get">
+        <form>
             <div class="mb-3">
                 <select class="form-control mx-auto w-auto" id="userAnswer" name="user_answer" placeholder="Team Name" type="text">
                     {% for team in teams %}
-                    <option value="{{ team.teamName }}">{{ team.teamName }}</option>
+                    <option value="{{ team }}">{{ team.teamName }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <button class="btn btn-primary" onclick="guess(event)">Submit</button>
         </form>
     </div>
 
 
-    <h1>{{ random_team }}</h1>
+    <!-- <h1>{{ random_team }}</h1> -->
 
 
 {% endblock %}
