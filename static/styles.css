@@ -194,3 +194,12 @@ body
 .incorrect {
     background-color: red;
 }
+
+.game-header-decorator
+{
+    font-size: 48px;
+    line-height: 38px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    margin-bottom: 12px;
+}

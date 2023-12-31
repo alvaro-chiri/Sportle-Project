@@ -14,25 +14,37 @@
                 guess a sports team.
         </h2>
     <div class="index-buttons">
-        <div class="row">
-            <div class="col">
-                <form action="/register">
-                    <button class="index-button">Register</button>
-                </form>
+        {% if not session["user_id"] %}
+            <div class="row">
+                <div class="col">
+                    <form action="/register">
+                        <button class="index-button">Register</button>
+                    </form>
+                </div>
+                <div class="col">
+                    <form action="/login">
+                        <button class="index-button">Log In</button>
+                    </form>
+                </div>
+                <div class="col">
+                    <form action="/play">
+                        <button class="play-button" type="submit">Play</button>
+                    </form>
+                </div>
             </div>
-            <div class="col">
-                <form action="/login">
-                    <button class="index-button">Log In</button>
-                </form>
+        {% else %}
+            <div class="row">
+                <div class="col">
+                    <form action="/play">
+                        <button class="play-button" type="submit">Play</button>
+                    </form>
+                </div>
             </div>
-            <div class="col">
-                <form action="/play">
-                    <button class="play-button" type="submit">Play</button>
-                </form>
-            </div>
+        {% endif %}
+    </div>
+    {% if not session["user_id"] %}
+        <div>
+            <p>*Must have an account to play.</p>
         </div>
-    </div>
-    <div>
-        <p>*Must have an account to play.</p>
-    </div>
+    {% endif %}
 {% endblock %}

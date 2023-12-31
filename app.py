@@ -71,7 +71,8 @@ def game_over():
 
         #update the winPerc
         games_won = rows[0]["wins"]
-        new_win_percentage = games_won / update_games_played
+        new_win_percentage = games_won / update_games_played * 100
+        new_win_percentage = round(new_win_percentage, 2)
 
         db.execute(
             "UPDATE users SET winPerc = ? WHERE id = ?", new_win_percentage, session["user_id"]
@@ -123,7 +124,8 @@ def game_win():
         )
 
         #update the winPerc
-        new_win_percentage = new_wins / update_games_played
+        new_win_percentage = new_wins / update_games_played * 100
+        new_win_percentage = round(new_win_percentage, 2)
 
         db.execute(
             "UPDATE users SET winPerc = ? WHERE id = ?", new_win_percentage, session["user_id"]
