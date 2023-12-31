@@ -54,7 +54,7 @@ def play():
     return render_template("play.html", teams=teams)
 
 #GAME OVER
-@app.route("/game_over", methods=["POST"])
+@app.route("/game_over_update", methods=["POST"])
 @login_required
 def game_over():
     """end game as loss"""
@@ -84,19 +84,27 @@ def game_over():
             "UPDATE users SET currStreak = ? WHERE id = ?", new_streak, session["user_id"]
         )
 
-        user_info = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
-
-        return render_template("gameOver.html", user_info=user_info)
+        return redirect("/game_over")
 
     else:
         return render_template("register.html")
+    
+# redirect to the gameover page
+@app.route("/game_over", methods=["GET", "POST"])
+@login_required
+def game_over_redirect():
+    """change page"""
+    
+    user_info = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+
+    return render_template("gameOver.html", user_info=user_info)
 
 #GAME WIN
-@app.route("/game_win", methods=["POST", "GET"])
+@app.route("/game_win_update", methods=["POST"])
 @login_required
 def game_win():
     """end game as a win"""
-    if request.method == "GET":
+    if request.method == "POST":
         rows = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
         
         # update the games played
@@ -138,13 +146,20 @@ def game_win():
                 "UPDATE users SET maxStreak = ? WHERE id = ?", max_streak, session["user_id"]
             )
 
-        user_info = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
-
-        return render_template("gameWin.html", user_info=user_info)
+        return print("this is working")
 
     else:
         return render_template("register.html")
 
+# redirect to the gameWin page
+@app.route("/game_win", methods=["GET", "POST"])
+@login_required
+def game_win_redirect():
+    """change page"""
+    
+    user_info = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+
+    return render_template("gameWin.html", user_info=user_info)
 
 
 

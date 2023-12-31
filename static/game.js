@@ -64,6 +64,7 @@ function guess() {
             gameWin = true;
 
             gameWinFunction()
+            // location.href = 'game_win';
         }
         else {
             if (selectedAnswer['sport'] == randomTeamData.sport) {
@@ -112,6 +113,7 @@ function guess() {
         if (row == 6) {
             gameOver = true
             gameOverFunction()
+            // location.href = 'game_over';
         }
     } catch (error) {
         console.error('Error parsing selected answer:', error);
@@ -119,54 +121,30 @@ function guess() {
 }
 
 
-// function gameOverFunction() {
-//     fetch('/game_over', {
-//         method: 'post',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//     })
-//     .then(response => response.text())  // Assuming the server responds with a redirect URL
-//     .then(redirectUrl => {
-//         // Redirect to the specified URL
-//         window.location.href = redirectUrl;
-//     })
-//     .catch(error => {
-//         console.error('Error calling Python action:', error);
-//     });
-// }
-
-function gameOverFunction() {
-    console.log('Game Over!'); // Add this line
-    fetch('/game_over', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => response.text())
-    .then(redirectUrl => {
-        console.log('Redirecting to:', redirectUrl); // Add this line
-        window.location.href = redirectUrl;
-    })
-    .catch(error => {
+async function gameOverFunction() {
+    try {
+        await fetch('/game_over_update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        location.href = 'game_over';
+    } catch (error) {
         console.error('Error calling Python action:', error);
-    });
+    }
 }
 
-function gameWinFunction() {
-    fetch('/game_win', {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => response.text())  // Assuming the server responds with a redirect URL
-    .then(redirectUrl => {
-        // Redirect to the specified URL
-        window.location.href = redirectUrl;
-    })
-    .catch(error => {
+async function gameWinFunction() {
+    try {
+        await fetch('/game_win_update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        location.href = 'game_win';
+    } catch (error) {
         console.error('Error calling Python action:', error);
-    });
+    }
 }
